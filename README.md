@@ -43,7 +43,7 @@ How can I use Sproukels?
 ![ignore](ignore.png)
 
 ### ignore
-![Planting](ignore.png)
+![ignore](ignore.png)
 
 ### ignore
 ![ignore](ignore.png)
