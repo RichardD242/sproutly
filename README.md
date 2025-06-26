@@ -50,5 +50,5 @@ This project is open source and free to use.
 
 ## Credits
 
-This project was inspired by the roblox game "Grow a Garden"
+This project wasnt inspired by a kids game
 
