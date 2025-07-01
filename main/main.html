@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Game-Sproutly</title>
+  <link rel="stylesheet" href="main.css" />
+  <link rel="icon" type="image/x-icon" href="FavLogoMain.png"/>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,600,700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+    <div class="flag-orpheus-left" id="orpheusFlag" onclick="hideOrpheus()"></div>
+    <!-- Menu: visible by default -->
+    <div class="container" id="menu">
+        <div class="title">Menu</div>
+        <input 
+            type="text" 
+            id="usernameInput" 
+            placeholder="Enter your username..." 
+            class="username-input"
+        />
+        <button class="menu-btn" onclick="startNewGame()">Start New Game</button>
+        <button class="menu-btn" onclick="loadGame()">Load</button>
+        <button class="menu-btn" onclick="openSettings()">Settings</button>
+        <div style="display: flex; justify-content: space-between; width: 100%; margin-top: 12px; font-size: x-small;">
+            <p style="color: #6e6e6eee; margin: 0;">Sproutly v0</p>
+        </div>
+
+    </div>
+
+    <!-- Game UI: hidden by default -->
+    <div id="gameUI" class="game-ui-section hidden">
+        <div class="leftsquare">
+            <!-- Sproukels Counter -->
+            <div class="sproukels-counter">
+                <img src="SproukelsIcon.png" alt="Sproukels" class="sproukels-icon">
+                <span id="sproukelsAmount">0</span>
+            </div>
+            <button class="left-btn sell-btn" onclick="openPanel('sell')">Sell</button>
+            <button class="left-btn shop-btn" onclick="openPanel('shop')">Seed-Shop</button>
+            <button class="left-btn soon-btn" disabled>Coming Soon</button>
+            <button class="left-btn settings-btn" onclick="openPanel('settings')">Settings</button>
+            <button class="left-btn backmenu-btn" onclick="openPanel('backmenu')">Back to MS</button>
+        </div>
+        <div class="panel-container">
+            <div id="sellPanel" class="side-panel hidden">
+                <button class="close-btn" onclick="closePanelOverlay()" aria-label="Close">&times;</button>
+                <h2>Sell</h2>
+                <ul>
+                    <li>Sell inventory</li>
+                    <li>Sell selected</li>
+                    <li>How much is this worth</li>
+                    <li>Bye</li>
+                </ul>
+            </div>
+            <div id="shopPanel" class="side-panel hidden">
+                <button class="close-btn" onclick="closePanelOverlay()" aria-label="Close">&times;</button>
+                <h2>Seed-Shop</h2>
+                <p>Shop content goes here.</p>
+            </div>
+            <div id="backMenuPanel" class="side-panel hidden">
+                <button class="close-btn" onclick="closePanelOverlay()" aria-label="Close">&times;</button>
+                <h2>Back to Menu</h2>
+                <p>Are you sure?</p>
+                <button class="modal-btn" onclick="confirmBackToMenu(true)">Yes</button>
+                <button class="modal-btn" onclick="confirmBackToMenu(false)">No</button>
+            </div>
+            <div id="settingsPanel" class="side-panel hidden">
+                <button class="close-btn" onclick="closePanelOverlay()" aria-label="Close">&times;</button>
+                <h2>Settings</h2>
+                <label class="toggle-label">
+                    <input type="checkbox" id="musicToggleSide" onchange="toggleMusic()" checked>
+                    Music On/Off
+                </label>
+                <label class="toggle-label" style="margin-top:16px;">
+                    <span style="margin-right:12px;">Light Mode</span>
+                    <input type="checkbox" id="themeToggle" onchange="toggleTheme()">
+                </label>
+            </div>
+        </div>
+        <div class="rounded-square">
+            <div class="plant-grid">
+                <div class="plant-cell"></div>
+                <div class="plant-cell"></div>
+                <div class="plant-cell"></div>
+                <div class="plant-cell"></div>
+                <div class="plant-cell"></div>
+                <div class="plant-cell locked" id="unlock-cell">
+                    <button class="unlock-btn" onclick="unlockCell(this)">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="homer_container">
+        <button class="homer" onclick="openSettings()">Back Home</button>
+        <p>(Tutorials, Links, Updates, etc)</p>
+    </div>
+    -->
+
+
+    <!-- Loading, overlays, modals: hidden by default -->
+    <div id="loading" class="hidden">
+        <div class="loading-bar-container">
+            <div class="loading-bar" id="progressBar"></div>
+        </div>
+        <div class="working-message">Working!</div>
+    </div>
+
+    <div id="settingsOverlay" class="settings-overlay hidden" onclick="closeSettings()"></div>
+    <div id="settingsModal" class="settings-modal hidden">
+        <h2>Settings</h2>
+        <label class="toggle-label">
+            <input type="checkbox" id="musicToggle" onchange="toggleMusic()" checked>
+            Music On/Off
+        </label>
+        <button class="menu-btn" onclick="closeSettings()">Close</button>
+    </div>
+    
+    <div class="homer_footer_container">
+        <a href="http://127.0.0.1:5501/home%20-%20sproutly/home.html" class="homer">Go to Homepage</a>
+        <p class="footer-link-desc">Visit the Sproutly homepage for more info and updates.</p>
+    </div>
+
+    <div id="shopModal" class="custom-modal hidden">
+        <h2>Shop</h2>
+        <div class="modal-content">Shop content goes here.</div>
+    </div>
+    <div id="sellModal" class="custom-modal hidden">
+        <h2>Sell</h2>
+        <div class="modal-content">Sell content goes here.</div>
+    </div>
+    <div id="backMenuModal" class="custom-modal hidden">
+        <h2>Back to Menu</h2>
+        <div class="modal-content">
+            Are you sure?<br><br>
+            <button class="modal-btn" onclick="confirmBackToMenu(true)">Yes</button>
+            <button class="modal-btn" onclick="confirmBackToMenu(false)">No</button>
+        </div>
+    </div>
+    <div id="panelOverlay" class="panel-overlay hidden" onclick="closePanelOverlay()"></div>
+
+    <script src="main.js"></script>
+</body>
+</html>
