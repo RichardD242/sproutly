@@ -452,34 +452,109 @@
         z-index: 1200;
     }
 
+    /* Base style for all left buttons */
     .left-btn {
-        width: 140px;
-        padding: 14px 0;
-        background: #333;
+        background: #232323;
         color: #ccc;
-        border: 3px solid transparent;
-        border-radius: 12px 0 0 12px;
+        border: none;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        padding: 12px 0;
         font-size: 1.1rem;
-        cursor: pointer;
-        transition: background 0.2s, color 0.2s, border-color 0.2s;
-        font-family: inherit;
-        font-weight: 600;
-        box-shadow: 0 2px 8px #0003;
-        position: relative;
+        font-weight: 500;
+        width: 100%;
+        transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+        box-shadow: 0 2px 8px #0002;
         outline: none;
-        margin-bottom: 8px;
+        cursor: pointer;
     }
 
-    .left-btn.active {
-        border-right: none;
-        border-left: 3px solid #ff6a4a;
-        border-top: 3px solid #ff6a4a;
-        border-bottom: 3px solid #ff6a4a;
+    /* Shop (green) */
+    .shop-btn.active,
+    .shop-btn:hover {
+        background: #2ecc40 !important;
+        color: #232323 !important;
+        box-shadow: 0 0 0 2px #2ecc4055;
+    }
+
+    .equipment-btn {
         background: #232323;
-        color: #fff;
-        z-index: 1300;
-        border-radius: 12px 0 0 12px;
-        position: relative;
+        color: #ccc;
+        border: none;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        padding: 12px 0;
+        font-size: 1.1rem;
+        font-weight: 500;
+        width: 100%;
+        transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+        box-shadow: 0 2px 8px #0002;
+        outline: none;
+        cursor: pointer;
+    }
+    .equipment-btn:hover {
+        background: #001f4d !important;
+        color: #fff !important;
+    }
+
+    /* Leaderboards (gold/yellow) */
+    .leaderboard-btn {
+        background: #232323;
+        color: #ccc;
+        border: none;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        padding: 12px 0;
+        font-size: 1.1rem;
+        font-weight: 500;
+        width: 100%;
+        transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+        box-shadow: 0 2px 8px #0002;
+        outline: none;
+        cursor: pointer;
+    }
+    .leaderboard-btn:hover {
+        background: linear-gradient(90deg, #ffe066 60%, #ffd700 100%) !important;
+        color: #bfa600 !important;
+        box-shadow: 0 0 0 2px #ffd70099;
+    }
+
+    /* Settings (black) */
+    .settings-btn.active,
+    .settings-btn:hover {
+        background: #181818 !important;
+        color: #ffe066 !important;
+        box-shadow: 0 0 0 2px #ffe06655;
+    }
+
+    /* Back to MS (gray) */
+    .backmenu-btn.active,
+    .backmenu-btn:hover {
+        background: #888 !important;
+        color: #fff !important;
+        box-shadow: 0 0 0 2px #8885;
+    }
+
+    /* Coming Soon (gold/yellow) */
+    .soon-btn,
+    .soon-btn:disabled {
+        background: linear-gradient(90deg, #ffe066 60%, #ffd700 100%);
+        color: #232323 !important;
+        font-weight: bold;
+        cursor: not-allowed;
+        border: none;
+        box-shadow: 0 0 0 2px #ffe06655;
+        opacity: 1 !important;
+    }
+    .soon-btn:hover {
+        background: linear-gradient(90deg, #ffd700 60%, #ffe066 100%);
+        color: #232323 !important;
+    }
+
+    /* Optional: Make active buttons a bit larger */
+    .left-btn.active {
+        transform: scale(1.04);
+        font-weight: 700;
     }
 
     .panel-container {
@@ -491,51 +566,40 @@
     }
 
     .side-panel {
-        position: absolute;
-        top: 0;
-        left: 140px;
-        min-width: 480px;
+        position: fixed;
+        top: 60px;
+        left: 320px;
+        min-width: 420px;
         min-height: 320px;
-        background: #232323;
+        background: rgba(40, 40, 40, 0.92);
         color: #fff;
-        border-top: 3px solid #ff6a4a;
-        border-right: 3px solid #ff6a4a;
-        border-bottom: 3px solid #ff6a4a;
-        border-left: none;
-        border-radius: 0 18px 18px 0;
-        box-shadow: 0 8px 48px #000a;
-        padding: 36px 48px;
+        border-radius: 22px;
+        box-shadow: 0 8px 40px 0 rgba(0,0,0,0.18), 0 1.5px 6px 0 rgba(0,0,0,0.12);
+        padding: 44px 48px 36px 48px;
         z-index: 1100;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        font-size: 1.25rem;
-        margin-left: 0;
+        font-size: 1.18rem;
         opacity: 0;
-        transform: translateY(30px) scale(0.98);
+        transform: translateY(0) scale(0.98);
         pointer-events: none;
         transition: opacity 0.25s cubic-bezier(.4,2,.6,1), transform 0.25s cubic-bezier(.4,2,.6,1);
+        border: 1.5px solid rgba(255,255,255,0.12);
+        backdrop-filter: blur(16px) saturate(1.3);
     }
-
     .side-panel.show {
         opacity: 1;
         transform: translateY(0) scale(1);
         pointer-events: auto;
     }
 
-    .panel-overlay {
-        position: fixed;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background: rgba(0,0,0,0.55);
-        z-index: 1000;
-    }
-
-    .modal-btn {
-        margin: 8px 12px 0 12px;
-        padding: 10px 24px;
-        border-radius: 8px;
-        border: none;
-        background: #6344ff;
+    .side-panel h2 {
+        font-size: 1.7rem;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 18px;
+        letter-spacing: 1px;
         color: #fff;
         font-size: 1rem;
         cursor: pointer;
@@ -570,21 +634,28 @@
 
     .close-btn {
         position: absolute;
-        top: 16px;
-        right: 20px;
-        background: transparent;
+        top: 18px;
+        right: 24px;
+        background: rgba(255,255,255,0.08);
         border: none;
-        color: #aaa;
+        color: #fff;
         font-size: 2rem;
         cursor: pointer;
         z-index: 1200;
-        transition: color 0.2s, transform 0.2s;
+        border-radius: 50%;
+        width: 38px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.18s, color 0.18s, transform 0.18s;
         padding: 0;
         line-height: 1;
     }
     .close-btn:hover {
+        background: rgba(255,255,255,0.18);
         color: #ff6a4a;
-        transform: scale(1.15);
+        transform: scale(1.12);
     }
 
     /* Seed shop styles */
@@ -594,24 +665,61 @@
         gap: 1rem;
         max-height: 400px;
         overflow-y: auto;
+        scrollbar-width: thick;
+        scrollbar-color: #27ae60 #eafbe7;
+        padding: 24px 32px 24px 32px;
+        background: transparent;
+        border-radius: 16px;
+    }
+
+    /* Webkit browsers (Chrome, Edge, Safari) */
+    .seed-shop::-webkit-scrollbar {
+        width: 22px;
+        background: transparent;
+    }
+
+    .seed-shop::-webkit-scrollbar-track {
+        background: #232323;
+        border-radius: 14px;
+        margin: 8px 0;
+        box-shadow: inset 0 0 8px #111;
+    }
+
+    .seed-shop::-webkit-scrollbar-thumb {
+        background: #444;
+        border-radius: 14px;
+        border: 5px solid #232323;
+        min-height: 60px;
+        box-shadow: 0 2px 8px #000a;
+    }
+
+    .seed-shop::-webkit-scrollbar-thumb:hover {
+        background: #fff;
+        border: 5px solid #444;
+    }
+
+    .seed-shop {
+        scrollbar-width: thick;
+        scrollbar-color: #444 #232323;
     }
 
     .seed-card {
         padding: 1rem;
-        border: 2px solid #444;
+        border: 2px solid #fff;
         border-radius: 0.75rem;
         cursor: pointer;
         transition: all 0.3s ease;
         display: flex;
         align-items: center;
         gap: 1rem;
-        background: #333;
-        color: #ccc;
+        background: rgba(255,255,255,0.12);
+        color: #232323;
     }
 
     .seed-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        background: #fff;
+        color: #27ae60;
+        box-shadow: 0 4px 15px rgba(39, 174, 96, 0.15);
     }
 
     .seed-card.available {
@@ -680,7 +788,7 @@
         position: fixed;
         top: 2rem;
         right: 2rem;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #125cb1;
         color: white;
         padding: 1rem 1.5rem;
         border-radius: 0.75rem;
@@ -757,6 +865,393 @@
         background: #eee !important;
         color: #e74c3c !important;
     }
+
+    /* --- Light Mode Only: Beautiful, readable overrides --- */
+    body.light-mode {
+        background: #f7f7fa;
+        color: #232323;
+    }
+    body.light-mode .container,
+    body.light-mode .homer_container,
+    body.light-mode .footer-link-container,
+    body.light-mode .settings-modal {
+        background: #fff !important;
+        color: #232323 !important;
+        box-shadow: 0 4px 24px #bdbdbd44;
+    }
+    body.light-mode .title {
+        color: #3a3a3a !important;
+    }
+    body.light-mode .menu-btn,
+    body.light-mode .homer,
+    body.light-mode .footer-home-btn {
+        background: #e6e6f0 !important;
+        color: #232323 !important;
+        border: 1px solid #d1d1e0;
+    }
+    body.light-mode .menu-btn:hover,
+    body.light-mode .homer:hover,
+    body.light-mode .footer-home-btn:hover {
+        background: #d1d1e0 !important;
+        color: #6344ff !important;
+    }
+    body.light-mode .username-input {
+        background: #f3f3fa !important;
+        color: #232323 !important;
+        border: 1px solid #e0e0e0;
+    }
+    body.light-mode .loading-bar-container {
+        background: #e6e6f0 !important;
+        box-shadow: 0 2px 8px #bdbdbd44;
+    }
+    body.light-mode .loading-bar {
+        background: #6344ff !important;
+    }
+    body.light-mode .working-message {
+        color: #6344ff !important;
+    }
+    body.light-mode .container_progress {
+        background: #e0e0e0 !important;
+    }
+    body.light-mode .container .progress-bar {
+        background-color: #6344ff !important;
+    }
+    body.light-mode .flag-orpheus {
+        background: linear-gradient(135deg, #b892ff 60%, #6344ff 100%) !important;
+    }
+    body.light-mode .flag-orpheus-left {
+        filter: brightness(1.1);
+    }
+    body.light-mode .footer-link-desc {
+        color: #555 !important;
+    }
+    body.light-mode .plant-cell {
+        background: #f3f3fa !important;
+        border: 1px solid #e0e0e0 !important;
+        color: #232323 !important;
+    }
+    body.light-mode .plant-cell.planted {
+        background: #e6e6f0 !important;
+    }
+    body.light-mode .plant-cell.ready {
+        background: #d1ffd6 !important;
+        border-color: #7be495 !important;
+    }
+    body.light-mode .plant-cell.empty {
+        background: #fff !important;
+    }
+    body.light-mode .plant-cell.locked {
+        background: #eee !important;
+        border-color: #bbb !important;
+    }
+    body.light-mode .plant-hint {
+        color: #aaa !important;
+    }
+    body.light-mode .growth-progress {
+        background: linear-gradient(90deg, #6344ff 0%, #00c3ff 100%) !important;
+    }
+    body.light-mode .seed-card {
+        background: #fff !important;
+        border: 1px solid #e0e0e0 !important;
+        color: #232323 !important;
+    }
+    body.light-mode .seed-card.selected {
+        border-color: #6344ff !important;
+        background: #f3f0ff !important;
+    }
+    body.light-mode .seed-card.locked {
+        background: #f6f6fa !important;
+        color: #aaa !important;
+    }
+    body.light-mode .seed-card.available {
+        background: #e6f7ff !important;
+        border-color: #00c3ff !important;
+    }
+    body.light-mode .seed-card.unavailable {
+        background: #fff0f0 !important;
+        border-color: #ffb3b3 !important;
+    }
+    body.light-mode .seed-name {
+        color: #232323 !important;
+    }
+    body.light-mode .seed-cost {
+        color: #b71c1c !important;
+    }
+    body.light-mode .seed-reward {
+        color: #388e3c !important;
+    }
+    body.light-mode .notification {
+        background: #6344ff !important;
+        color: #fff !important;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px #bdbdbd44;
+    }
+    body.light-mode .leftsquare,
+    body.light-mode .side-panel,
+    body.light-mode .panel-container {
+        background: #f7f7f7 !important;
+        color: #232323 !important;
+    }
+    body.light-mode .left-btn,
+    body.light-mode .rounded-square {
+        background: #fff !important;
+        color: #232323 !important;
+    }
+    body.light-mode .sproukels-counter {
+        background: #fff !important;
+        color: #bfa600 !important;
+    }
+    body.light-mode .side-panel {
+        border-color: #e74c3c !important;
+    }
+    body.light-mode .left-btn.active {
+        background: #eee !important;
+        color: #e74c3c !important;
+    }
+    body.light-mode .xp-bar-bg {
+        background: #e0e0e0 !important;
+    }
+    body.light-mode .xp-bar-fill {
+        background: linear-gradient(90deg, #6344ff 0%, #00c3ff 100%) !important;
+        box-shadow: 0 0 8px #6344ff88 !important;
+    }
+    body.light-mode .xp-label {
+        color: #6344ff !important;
+    }
+    body.light-mode .xp-level {
+        color: #232323 !important;
+    }
+    body.light-mode .close-btn {
+        background: #eee !important;
+        color: #6344ff !important;
+    }
+    body.light-mode .close-btn:hover {
+        background: #6344ff !important;
+        color: #fff !important;
+    }
+
+    .load-save-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #232323;
+        border-radius: 8px;
+        padding: 12px 18px;
+        margin-bottom: 12px;
+        box-shadow: 0 2px 8px #0002;
+        transition: background 0.2s;
+    }
+    .load-save-row:hover {
+        background: #333;
+    }
+    .load-save-username {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #ffe066;
+        flex: 1;
+    }
+    .load-save-sproukels {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #ffe066;
+    }
+    .load-save-btn {
+        margin-left: 18px;
+        padding: 8px 18px;
+        border-radius: 8px;
+        border: none;
+        background: #6344ff;
+        color: #fff;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+    .load-save-btn:hover {
+        background: #3fa7ff;
+        color: #fff;
+    }
+
+    #loadGameModal.custom-modal {
+        position: fixed;
+        top: 60px;
+        right: 60px; /* changed from left: 60px; */
+        left: auto;
+        width: 400px;
+        background: #232323;
+        border-radius: 12px;
+        box-shadow: 0 4px 24px #000a;
+        padding: 32px 24px 24px 24px;
+        z-index: 1002;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        transition: right 0.2s;
+    }
+    #loadGameModal.custom-modal.hidden {
+        display: none;
+    }
+    #panelOverlay {
+        /* Don't show overlay when loading modal is open */
+        background: transparent !important;
+        pointer-events: none;
+    }
+
+    /* Panel color accents */
+    .side-panel.shop-panel {
+        min-width: 600px;
+        min-height: 540px;
+        background: rgba(40, 40, 40, 0.92); /* Match Sell/Settings */
+        border-radius: 22px;
+        box-shadow: 0 8px 40px 0 rgba(0,0,0,0.18), 0 1.5px 6px 0 rgba(0,0,0,0.12);
+        padding: 44px 48px 36px 48px;
+        color: #fff;
+        border: 1.5px solid rgba(255,255,255,0.12);
+        /* Remove green gradient and white borders for full match */
+    }
+    .side-panel.shop-panel h2 {
+        color: #fff;
+        text-shadow: none;
+    }
+
+    #loadGameModal .modal-btn {
+        background: none;
+        color: #aaa;
+        border: none;
+        font-size: 1.1rem;
+        padding: 10px 0 0 0;
+        margin: 0 auto;
+        border-radius: 0;
+        box-shadow: none;
+        cursor: pointer;
+        transition: color 0.18s;
+        width: fit-content;
+        display: block;
+    }
+    #loadGameModal .modal-btn:hover {
+        color: #fff;
+        text-decoration: underline;
+        background: none;
+    }
+
+    .xp-bar-container {
+        margin: 12px 0 18px 0;
+        width: 220px;
+        user-select: none;
+    }
+    .xp-label {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.05rem;
+        color: #ffe066;
+        font-weight: 600;
+        margin-bottom: 2px;
+        letter-spacing: 0.5px;
+    }
+    .xp-level {
+        color: #fff;
+        font-weight: 700;
+        font-size: 1.1rem;
+    }
+    .xp-bar-bg {
+        background: #232323;
+        border-radius: 8px;
+        height: 16px;
+        width: 100%;
+        overflow: hidden;
+        box-shadow: 0 2px 8px #0002;
+    }
+    .xp-bar-fill {
+        background: linear-gradient(90deg, #ffe066 0%, #27ae60 100%);
+        height: 100%;
+        width: 0%;
+        border-radius: 8px 0 0 8px;
+        transition: width 0.7s cubic-bezier(.4,2,.6,1);
+        box-shadow: 0 0 8px #ffe06688;
+    }
+    .xp-bar-fill.animated {
+        animation: xpPop 0.5s;
+    }
+    @keyframes xpPop {
+        0% { box-shadow: 0 0 8px #ffe06688, 0 0 0 #ffe066; }
+        60% { box-shadow: 0 0 24px #ffe066cc, 0 0 16px #ffe06688; }
+        100% { box-shadow: 0 0 8px #ffe06688, 0 0 0 #ffe066; }
+    }
+
+    .equipment-shop {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        margin-top: 18px;
+        justify-content: flex-start;
+    }
+    .equipment-card {
+        background: #232323;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px #0002;
+        padding: 18px 18px 10px 18px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 120px;
+        max-width: 140px;
+        min-height: 140px;
+        transition: box-shadow 0.2s, background 0.2s;
+    }
+    .equipment-card:hover {
+        background: #001f4d;
+        box-shadow: 0 4px 16px #001f4d55;
+    }
+    .equipment-icon {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 10px;
+        object-fit: contain;
+    }
+    .equipment-name {
+        font-size: 1.1rem;
+        color: #ffe066;
+        font-weight: 600;
+        margin-top: 4px;
+        text-align: center;
+    }
+    .leaderboard-list {
+        margin-top: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .leaderboard-row {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        background: #232323;
+        border-radius: 10px;
+        padding: 12px 24px;
+        box-shadow: 0 2px 8px #0002;
+    }
+    .leaderboard-icon {
+        width: 48px;
+        height: 48px;
+        margin-right: 8px;
+    }
+    .leaderboard-rank {
+        font-weight: bold;
+        color: #ffe066;
+        min-width: 90px;
+    }
+    .leaderboard-name {
+        font-size: 1.1rem;
+        color: #fff;
+        min-width: 120px;
+    }
+    .leaderboard-score {
+        font-size: 1.1rem;
+        color: #00c3ff;
+        margin-left: auto;
+    }
   </style>
 </head>
 <body>
@@ -786,14 +1281,27 @@
                 <img src="SproukelsIcon.png" alt="Sproukels" class="sproukels-icon">
                 <span id="sproukelsAmount">0</span>
             </div>
-            <button class="left-btn sell-btn" onclick="openPanel('sell')">Sell</button>
+            <div class="xp-bar-container">
+                <div class="xp-label">
+                    <span id="xpAmount">0</span> XP
+                    <span class="xp-level">Lv. <span id="xpLevel">1</span></span>
+                </div>
+                <div class="xp-bar-bg">
+                    <div class="xp-bar-fill" id="xpBarFill"></div>
+                </div>
+            </div>
             <button class="left-btn shop-btn" onclick="openPanel('shop')">Seed-Shop</button>
-            <button class="left-btn soon-btn" disabled>Coming Soon</button>
+            <button class="left-btn equipment-btn" onclick="openPanel('equipment')">Equipment Shop</button>
+            <button class="left-btn leaderboard-btn" onclick="openPanel('leaderboard')">Leaderboards</button>
             <button class="left-btn settings-btn" onclick="openPanel('settings')">Settings</button>
             <button class="left-btn backmenu-btn" onclick="openPanel('backmenu')">Back to MS</button>
+            <div class="active-area" id="activeArea" style="min-width:120px;max-width:180px;margin-top:24px;display:flex;flex-direction:column;gap:18px;align-items:center;justify-content:flex-start;background:#232323;border-radius:12px;padding:18px 8px;box-shadow:0 2px 8px #0002;">
+                <h3 style="color:#ffe066;font-size:1.1rem;margin-bottom:8px;">Active Area</h3>
+                <div id="activeAreaContent" style="width:100%;display:flex;flex-direction:column;gap:10px;"></div>
+            </div>
         </div>
         <div class="panel-container">
-            <div id="sellPanel" class="side-panel hidden">
+            <div id="sellPanel" class="side-panel sell-panel hidden">
                 <button class="close-btn" onclick="closePanelOverlay()" aria-label="Close">&times;</button>
                 <h2>Sell</h2>
                 <ul>
@@ -803,19 +1311,95 @@
                     <li>Bye</li>
                 </ul>
             </div>
-            <div id="shopPanel" class="side-panel hidden">
+            <div id="shopPanel" class="side-panel shop-panel hidden">
                 <button class="close-btn" onclick="closePanelOverlay()" aria-label="Close">&times;</button>
                 <h2>Seed-Shop</h2>
                 <div id="seed-shop" class="seed-shop"></div>
             </div>
-            <div id="backMenuPanel" class="side-panel hidden">
+            <div id="equipmentPanel" class="side-panel equipment-panel hidden">
+                <button class="close-btn" onclick="closePanelOverlay()" aria-label="Close">&times;</button>
+                <h2>Equipment Shop</h2>
+                <div id="equipment-shop" class="equipment-shop" style="max-width: 340px; min-width: 0; flex-direction: column; gap: 14px;"></div>
+            </div>
+            <div id="leaderboardPanel" class="side-panel leaderboard-panel hidden">
+                <button class="close-btn" onclick="closePanelOverlay()" aria-label="Close">&times;</button>
+                <h2>Leaderboards</h2>
+                <div class="leaderboard-categories" style="display:flex;gap:16px;margin-bottom:12px;">
+                    <button class="menu-btn leaderboard-tab" data-category="sproukels">Sproukels</button>
+                    <button class="menu-btn leaderboard-tab" data-category="levels">Levels</button>
+                    <button class="menu-btn leaderboard-tab" data-category="plants">Plants Planted</button>
+                </div>
+                <div id="leaderboardContent">
+                    <div class="leaderboard-list" data-category="sproukels">
+                        <div class="leaderboard-row">
+                            <img src="../game-objects/First_Place_t.png" alt="1st Place" class="leaderboard-icon" />
+                            <span class="leaderboard-rank">1st Place</span>
+                            <span class="leaderboard-name">PlayerOne</span>
+                            <span class="leaderboard-score">9999 pts</span>
+                        </div>
+                        <div class="leaderboard-row">
+                            <img src="../game-objects/Second_Place_t.png" alt="2nd Place" class="leaderboard-icon" />
+                            <span class="leaderboard-rank">2nd Place</span>
+                            <span class="leaderboard-name">PlayerTwo</span>
+                            <span class="leaderboard-score">8888 pts</span>
+                        </div>
+                        <div class="leaderboard-row">
+                            <img src="../game-objects/Third_Place_t.png" alt="3rd Place" class="leaderboard-icon" />
+                            <span class="leaderboard-rank">3rd Place</span>
+                            <span class="leaderboard-name">PlayerThree</span>
+                            <span class="leaderboard-score">7777 pts</span>
+                        </div>
+                    </div>
+                    <div class="leaderboard-list" data-category="levels" style="display:none;">
+                        <div class="leaderboard-row">
+                            <img src="../game-objects/First_Place_t.png" alt="1st Place" class="leaderboard-icon" />
+                            <span class="leaderboard-rank">1st Place</span>
+                            <span class="leaderboard-name">PlayerOne</span>
+                            <span class="leaderboard-score">9999 pts</span>
+                        </div>
+                        <div class="leaderboard-row">
+                            <img src="../game-objects/Second_Place_t.png" alt="2nd Place" class="leaderboard-icon" />
+                            <span class="leaderboard-rank">2nd Place</span>
+                            <span class="leaderboard-name">PlayerTwo</span>
+                            <span class="leaderboard-score">8888 pts</span>
+                        </div>
+                        <div class="leaderboard-row">
+                            <img src="../game-objects/Third_Place_t.png" alt="3rd Place" class="leaderboard-icon" />
+                            <span class="leaderboard-rank">3rd Place</span>
+                            <span class="leaderboard-name">PlayerThree</span>
+                            <span class="leaderboard-score">7777 pts</span>
+                        </div>
+                    </div>
+                    <div class="leaderboard-list" data-category="plants" style="display:none;">
+                        <div class="leaderboard-row">
+                            <img src="../game-objects/First_Place_t.png" alt="1st Place" class="leaderboard-icon" />
+                            <span class="leaderboard-rank">1st Place</span>
+                            <span class="leaderboard-name">PlayerOne</span>
+                            <span class="leaderboard-score">9999 pts</span>
+                        </div>
+                        <div class="leaderboard-row">
+                            <img src="../game-objects/Second_Place_t.png" alt="2nd Place" class="leaderboard-icon" />
+                            <span class="leaderboard-rank">2nd Place</span>
+                            <span class="leaderboard-name">PlayerTwo</span>
+                            <span class="leaderboard-score">8888 pts</span>
+                        </div>
+                        <div class="leaderboard-row">
+                            <img src="../game-objects/Third_Place_t.png" alt="3rd Place" class="leaderboard-icon" />
+                            <span class="leaderboard-rank">3rd Place</span>
+                            <span class="leaderboard-name">PlayerThree</span>
+                            <span class="leaderboard-score">7777 pts</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="backMenuPanel" class="side-panel backmenu-panel hidden">
                 <button class="close-btn" onclick="closePanelOverlay()" aria-label="Close">&times;</button>
                 <h2>Back to Menu</h2>
                 <p>Are you sure?</p>
-                <button class="modal-btn" onclick="confirmBackToMenu(true)">Yes</button>
-                <button class="modal-btn" onclick="confirmBackToMenu(false)">No</button>
+                <button class="menu-btn" onclick="confirmBackToMenu(true)">Yes</button>
+                <button class="menu-btn" onclick="confirmBackToMenu(false)">No</button>
             </div>
-            <div id="settingsPanel" class="side-panel hidden">
+            <div id="settingsPanel" class="side-panel settings-panel hidden">
                 <button class="close-btn" onclick="closePanelOverlay()" aria-label="Close">&times;</button>
                 <h2>Settings</h2>
                 <label class="toggle-label">
@@ -873,6 +1457,11 @@
             <button class="modal-btn" onclick="confirmBackToMenu(true)">Yes</button>
             <button class="modal-btn" onclick="confirmBackToMenu(false)">No</button>
         </div>
+    </div>
+    <div id="loadGameModal" class="custom-modal hidden">
+        <h2>Load Game</h2>
+        <div id="savedGamesList" style="margin-top: 18px; min-width: 320px;"></div>
+        <button class="modal-btn" onclick="closeLoadGameModal()" style="margin-top: 18px;">Cancel</button>
     </div>
     <div id="panelOverlay" class="panel-overlay hidden" onclick="closePanelOverlay()"></div>
 
