@@ -54,7 +54,6 @@
         background: #444;
         color: #fff;
     }
-
     .homer_container {
         background: #232323;
         border-radius: 12px;
@@ -67,7 +66,6 @@
         position: relative;
         z-index: 2;
     }
-
     .homer {
         background: #333;
         color: #ccc;
@@ -84,20 +82,17 @@
         background: #444;
         color: #fff;
     }
-
     .container_progress {
         height: 25px;
         background: #ccc;
         position: relative;
     }
-
     .container .progress-bar {
         position: absolute;
         height: 100%;
         background-color: rgb(125, 44, 255);
         animation: progress-animation 5s forwards;
     }
-
     @keyframes progress-animation {
         0% {
             width: 0%;
@@ -146,7 +141,6 @@
         width: 80%;
         text-align: center;
     }
-
     .flag-orpheus {
         position: absolute;
         top: 80px;
@@ -157,7 +151,6 @@
         border-bottom-right-radius: 40px;
         z-index: 1;
     }
-
     .flag-orpheus-left {
         position: absolute;
         left: 0;
@@ -169,7 +162,6 @@
         background-size: contain;
         cursor: pointer; 
     }
-
     .footer-link-container {
         background: #232323;
         border-radius: 12px;
@@ -210,7 +202,6 @@
         text-align: center;
         margin: 8px 0 0 0;
     }
-
     .homer_footer_container {
         background: #232323;
         border-radius: 12px;
@@ -226,11 +217,9 @@
         bottom: 24px;
         z-index: 10;
     }
-
     .homer_footer_container .homer {
         text-decoration: none; 
     }
-
     .settings-overlay {
         position: fixed;
         top: 0; left: 0; right: 0; bottom: 0;
@@ -274,12 +263,10 @@
         outline: none;
         transition: border-color 0.2s;
     }
-
     .toggle-label input[type="checkbox"]:checked {
         border-color: #2ecc40;
         background: #232323;
     }
-
     .toggle-label input[type="checkbox"]:checked::after {
         content: '';
         position: absolute;
@@ -317,7 +304,6 @@
         margin-left: auto;
         margin-right: 32px;
     }
-
     .plant-grid{
         display: grid;
         grid-template-columns: repeat(8, 1fr);
@@ -328,7 +314,6 @@
         padding: 32px;
         box-sizing: border-box;
     }
-
     .plant-cell {
         background: #232323;
         border-radius: 10px;
@@ -344,43 +329,36 @@
         font-size: 1.5rem;
         font-weight: bold;
     }
-
     .plant-cell.empty {
         background: #8b4513;
         border-color: #654321;
     }
-
     .plant-cell.empty.plantable {
         background: #cd853f;
         border-color: #daa520;
         border-style: dashed;
         animation: pulse 2s infinite;
     }
-
     .plant-cell.planted {
         background: #90ee90;
         border-color: #32cd32;
         color: #2c3e50;
     }
-
     .plant-cell.ready {
         background: #7cfc00;
         border-color: #32cd32;
         animation: glow 2s infinite;
         color: #2c3e50;
     }
-
     .plant-display {
         font-size: 1.5rem;
         animation: bounce 0.5s ease-out;
     }
-
     .plant-hint {
         color: #6c757d;
         opacity: 0.7;
         font-size: 1.2rem;
     }
-
     .growth-progress {
         position: absolute;
         bottom: 2px;
@@ -391,7 +369,6 @@
         border-radius: 2px;
         transition: width 1s ease;
     }
-
     .plant-cell.locked {
         border: 2px dashed #aaa;
         background: #181818;
@@ -400,7 +377,6 @@
         align-items: center;
         justify-content: center;
     }
-
     .unlock-btn {
         background: #232323;
         color: #2ecc40;
@@ -417,16 +393,13 @@
         transition: background 0.2s, color 0.2s;
         padding: 0;
     }
-
     .unlock-btn:hover {
         background: #2ecc40;
         color: #232323;
     }
-
     .plant-cell.hidden{
         display: none;
     }
-
     @media (max-width: 800px) {
         .rounded-square {
             width: 98vw;
@@ -440,7 +413,6 @@
             font-size: 1rem;
         }
     }
-
     .leftsquare {
         display: flex;
         flex-direction: column;
@@ -451,8 +423,6 @@
         position: relative;
         z-index: 1200;
     }
-
-    /* Base style for all left buttons */
     .left-btn {
         background: #232323;
         color: #ccc;
@@ -468,15 +438,12 @@
         outline: none;
         cursor: pointer;
     }
-
-    /* Shop (green) */
     .shop-btn.active,
     .shop-btn:hover {
         background: #2ecc40 !important;
         color: #232323 !important;
         box-shadow: 0 0 0 2px #2ecc4055;
     }
-
     .equipment-btn {
         background: #232323;
         color: #ccc;
@@ -496,8 +463,6 @@
         background: #001f4d !important;
         color: #fff !important;
     }
-
-    /* Leaderboards (gold/yellow) */
     .leaderboard-btn {
         background: #232323;
         color: #ccc;
@@ -518,24 +483,18 @@
         color: #bfa600 !important;
         box-shadow: 0 0 0 2px #ffd70099;
     }
-
-    /* Settings (black) */
     .settings-btn.active,
     .settings-btn:hover {
         background: #181818 !important;
         color: #ffe066 !important;
         box-shadow: 0 0 0 2px #ffe06655;
     }
-
-    /* Back to MS (gray) */
     .backmenu-btn.active,
     .backmenu-btn:hover {
         background: #888 !important;
         color: #fff !important;
         box-shadow: 0 0 0 2px #8885;
     }
-
-    /* Coming Soon (gold/yellow) */
     .soon-btn,
     .soon-btn:disabled {
         background: linear-gradient(90deg, #ffe066 60%, #ffd700 100%);
@@ -550,13 +509,10 @@
         background: linear-gradient(90deg, #ffd700 60%, #ffe066 100%);
         color: #232323 !important;
     }
-
-    /* Optional: Make active buttons a bit larger */
     .left-btn.active {
         transform: scale(1.04);
         font-weight: 700;
     }
-
     .panel-container {
         position: relative;
         flex: 1;
@@ -564,7 +520,6 @@
         flex-direction: column;
         align-items: flex-start;
     }
-
     .side-panel {
         position: fixed;
         top: 60px;
@@ -593,7 +548,6 @@
         transform: translateY(0) scale(1);
         pointer-events: auto;
     }
-
     .side-panel h2 {
         font-size: 1.7rem;
         font-weight: 700;
@@ -624,14 +578,12 @@
         box-shadow: 0 2px 8px #0003;
         gap: 10px;
     }
-
     .sproukels-icon {
         width: 32px;
         height: 32px;
         margin-right: 8px;
         vertical-align: middle;
     }
-
     .close-btn {
         position: absolute;
         top: 18px;
@@ -657,8 +609,6 @@
         color: #ff6a4a;
         transform: scale(1.12);
     }
-
-    /* Seed shop styles */
     .seed-shop {
         display: flex;
         flex-direction: column;
@@ -671,20 +621,16 @@
         background: transparent;
         border-radius: 16px;
     }
-
-    /* Webkit browsers (Chrome, Edge, Safari) */
     .seed-shop::-webkit-scrollbar {
         width: 22px;
         background: transparent;
     }
-
     .seed-shop::-webkit-scrollbar-track {
         background: #232323;
         border-radius: 14px;
         margin: 8px 0;
         box-shadow: inset 0 0 8px #111;
     }
-
     .seed-shop::-webkit-scrollbar-thumb {
         background: #444;
         border-radius: 14px;
@@ -692,17 +638,14 @@
         min-height: 60px;
         box-shadow: 0 2px 8px #000a;
     }
-
     .seed-shop::-webkit-scrollbar-thumb:hover {
         background: #fff;
         border: 5px solid #444;
     }
-
     .seed-shop {
         scrollbar-width: thick;
         scrollbar-color: #444 #232323;
     }
-
     .seed-card {
         padding: 1rem;
         border: 2px solid #fff;
@@ -715,35 +658,29 @@
         background: rgba(255,255,255,0.12);
         color: #232323;
     }
-
     .seed-card:hover {
         background: #fff;
         color: #27ae60;
         box-shadow: 0 4px 15px rgba(39, 174, 96, 0.15);
     }
-
     .seed-card.available {
         border-color: #28a745;
         background: #2d4a2d;
     }
-
     .seed-card.selected {
         border-color: #007bff;
         background: #2d3a4a;
         box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
     }
-
     .seed-card.unavailable {
         opacity: 0.5;
         cursor: not-allowed;
     }
-
     .seed-card.locked {
         opacity: 0.3;
         cursor: not-allowed;
         background: #222;
     }
-
     .seed-icon {
         font-size: 2rem;
         width: 3rem;
@@ -755,35 +692,28 @@
         border-radius: 0.5rem;
         border: 2px solid rgba(255, 255, 255, 0.2);
     }
-
     .seed-info {
         flex: 1;
     }
-
     .seed-name {
         font-weight: 600;
         color: #fff;
         margin-bottom: 0.25rem;
     }
-
     .seed-cost {
         font-size: 0.9rem;
         color: #dc3545;
         font-weight: 500;
     }
-
     .seed-reward {
         font-size: 0.8rem;
         color: #28a745;
     }
-
     .seed-level {
         font-size: 0.8rem;
         color: #6c757d;
         font-style: italic;
     }
-
-    /* Notification */
     .notification {
         position: fixed;
         top: 2rem;
@@ -797,13 +727,10 @@
         animation: slideIn 0.5s ease-out;
         font-weight: 500;
     }
-
-    /* Animations */
     @keyframes pulse {
         0%, 100% { opacity: 1; }
         50% { opacity: 0.7; }
     }
-
     @keyframes glow {
         0%, 100% { 
             box-shadow: 0 0 5px #32cd32;
@@ -812,7 +739,6 @@
             box-shadow: 0 0 20px #32cd32, 0 0 30px #32cd32;
         }
     }
-
     @keyframes bounce {
         0% {
             transform: translateY(-10px);
@@ -826,7 +752,6 @@
             opacity: 1;
         }
     }
-
     @keyframes slideIn {
         from {
             transform: translateX(100%);
@@ -837,8 +762,6 @@
             opacity: 1;
         }
     }
-
-    /* Light mode styles */
     body.light-mode,
     body.light-mode .game-ui-section,
     body.light-mode .rounded-square,
@@ -865,8 +788,6 @@
         background: #eee !important;
         color: #e74c3c !important;
     }
-
-    /* --- Light Mode Only: Beautiful, readable overrides --- */
     body.light-mode {
         background: #f7f7fa;
         color: #232323;
@@ -1029,7 +950,6 @@
         background: #6344ff !important;
         color: #fff !important;
     }
-
     .load-save-row {
         display: flex;
         align-items: center;
@@ -1073,11 +993,10 @@
         background: #3fa7ff;
         color: #fff;
     }
-
     #loadGameModal.custom-modal {
         position: fixed;
         top: 60px;
-        right: 60px; /* changed from left: 60px; */
+        right: 60px;
         left: auto;
         width: 400px;
         background: #232323;
@@ -1094,28 +1013,23 @@
         display: none;
     }
     #panelOverlay {
-        /* Don't show overlay when loading modal is open */
         background: transparent !important;
         pointer-events: none;
     }
-
-    /* Panel color accents */
     .side-panel.shop-panel {
         min-width: 600px;
         min-height: 540px;
-        background: rgba(40, 40, 40, 0.92); /* Match Sell/Settings */
+        background: rgba(40, 40, 40, 0.92);
         border-radius: 22px;
         box-shadow: 0 8px 40px 0 rgba(0,0,0,0.18), 0 1.5px 6px 0 rgba(0,0,0,0.12);
         padding: 44px 48px 36px 48px;
         color: #fff;
         border: 1.5px solid rgba(255,255,255,0.12);
-        /* Remove green gradient and white borders for full match */
     }
     .side-panel.shop-panel h2 {
         color: #fff;
         text-shadow: none;
     }
-
     #loadGameModal .modal-btn {
         background: none;
         color: #aaa;
@@ -1135,7 +1049,6 @@
         text-decoration: underline;
         background: none;
     }
-
     .xp-bar-container {
         margin: 12px 0 18px 0;
         width: 220px;
@@ -1179,7 +1092,6 @@
         60% { box-shadow: 0 0 24px #ffe066cc, 0 0 16px #ffe06688; }
         100% { box-shadow: 0 0 8px #ffe06688, 0 0 0 #ffe066; }
     }
-
     .equipment-shop {
         display: flex;
         flex-wrap: wrap;
@@ -1252,11 +1164,38 @@
         color: #00c3ff;
         margin-left: auto;
     }
+    .leaderboard-scroll {
+        max-height: 400px;
+        overflow-y: auto;
+        padding-right: 16px;
+        scrollbar-width: thick;
+        scrollbar-color: #ffe066 #232323;
+    }
+    .leaderboard-scroll::-webkit-scrollbar {
+        width: 18px;
+        background: transparent;
+    }
+    .leaderboard-scroll::-webkit-scrollbar-track {
+        background: #232323;
+        border-radius: 14px;
+        margin: 8px 0;
+        box-shadow: inset 0 0 8px #111;
+    }
+    .leaderboard-scroll::-webkit-scrollbar-thumb {
+        background: #ffe066;
+        border-radius: 14px;
+        border: 5px solid #232323;
+        min-height: 60px;
+        box-shadow: 0 2px 8px #000a;
+    }
+    .leaderboard-scroll::-webkit-scrollbar-thumb:hover {
+        background: #ffd700;
+        border: 5px solid #ffe066;
+    }
   </style>
 </head>
 <body>
     <div class="flag-orpheus-left" id="orpheusFlag" onclick="hideOrpheus()"></div>
-    <!-- Menu: visible by default -->
     <div class="container" id="menu">
         <div class="title">Menu</div>
         <input 
@@ -1269,14 +1208,11 @@
         <button class="menu-btn" onclick="loadGame()">Load</button>
         <button class="menu-btn" onclick="openSettings()">Settings</button>
         <div style="display: flex; justify-content: space-between; width: 100%; margin-top: 12px; font-size: x-small;">
-            <p style="color: #6e6e6eee; margin: 0;">Sproutly v0</p>
+            <p style="color: #6e6e6eee; margin: 0;">Sproutly v1_1_SoM</p>
         </div>
     </div>
-
-    <!-- Game UI: hidden by default -->
     <div id="gameUI" class="game-ui-section hidden">
         <div class="leftsquare">
-            <!-- Sproukels Counter -->
             <div class="sproukels-counter">
                 <img src="SproukelsIcon.png" alt="Sproukels" class="sproukels-icon">
                 <span id="sproukelsAmount">0</span>
@@ -1294,7 +1230,7 @@
             <button class="left-btn equipment-btn" onclick="openPanel('equipment')">Equipment Shop</button>
             <button class="left-btn leaderboard-btn" onclick="openPanel('leaderboard')">Leaderboards</button>
             <button class="left-btn settings-btn" onclick="openPanel('settings')">Settings</button>
-            <button class="left-btn backmenu-btn" onclick="openPanel('backmenu')">Back to MS</button>
+            <button class="left-btn backmenu-btn" onclick="openPanel('backmenu')">Back to Menu</button>
             <div class="active-area" id="activeArea" style="min-width:120px;max-width:180px;margin-top:24px;display:flex;flex-direction:column;gap:18px;align-items:center;justify-content:flex-start;background:#232323;border-radius:12px;padding:18px 8px;box-shadow:0 2px 8px #0002;">
                 <h3 style="color:#ffe066;font-size:1.1rem;margin-bottom:8px;">Active Area</h3>
                 <div id="activeAreaContent" style="width:100%;display:flex;flex-direction:column;gap:10px;"></div>
@@ -1329,67 +1265,7 @@
                     <button class="menu-btn leaderboard-tab" data-category="levels">Levels</button>
                     <button class="menu-btn leaderboard-tab" data-category="plants">Plants Planted</button>
                 </div>
-                <div id="leaderboardContent">
-                    <div class="leaderboard-list" data-category="sproukels">
-                        <div class="leaderboard-row">
-                            <img src="../game-objects/First_Place_t.png" alt="1st Place" class="leaderboard-icon" />
-                            <span class="leaderboard-rank">1st Place</span>
-                            <span class="leaderboard-name">PlayerOne</span>
-                            <span class="leaderboard-score">9999 pts</span>
-                        </div>
-                        <div class="leaderboard-row">
-                            <img src="../game-objects/Second_Place_t.png" alt="2nd Place" class="leaderboard-icon" />
-                            <span class="leaderboard-rank">2nd Place</span>
-                            <span class="leaderboard-name">PlayerTwo</span>
-                            <span class="leaderboard-score">8888 pts</span>
-                        </div>
-                        <div class="leaderboard-row">
-                            <img src="../game-objects/Third_Place_t.png" alt="3rd Place" class="leaderboard-icon" />
-                            <span class="leaderboard-rank">3rd Place</span>
-                            <span class="leaderboard-name">PlayerThree</span>
-                            <span class="leaderboard-score">7777 pts</span>
-                        </div>
-                    </div>
-                    <div class="leaderboard-list" data-category="levels" style="display:none;">
-                        <div class="leaderboard-row">
-                            <img src="../game-objects/First_Place_t.png" alt="1st Place" class="leaderboard-icon" />
-                            <span class="leaderboard-rank">1st Place</span>
-                            <span class="leaderboard-name">PlayerOne</span>
-                            <span class="leaderboard-score">9999 pts</span>
-                        </div>
-                        <div class="leaderboard-row">
-                            <img src="../game-objects/Second_Place_t.png" alt="2nd Place" class="leaderboard-icon" />
-                            <span class="leaderboard-rank">2nd Place</span>
-                            <span class="leaderboard-name">PlayerTwo</span>
-                            <span class="leaderboard-score">8888 pts</span>
-                        </div>
-                        <div class="leaderboard-row">
-                            <img src="../game-objects/Third_Place_t.png" alt="3rd Place" class="leaderboard-icon" />
-                            <span class="leaderboard-rank">3rd Place</span>
-                            <span class="leaderboard-name">PlayerThree</span>
-                            <span class="leaderboard-score">7777 pts</span>
-                        </div>
-                    </div>
-                    <div class="leaderboard-list" data-category="plants" style="display:none;">
-                        <div class="leaderboard-row">
-                            <img src="../game-objects/First_Place_t.png" alt="1st Place" class="leaderboard-icon" />
-                            <span class="leaderboard-rank">1st Place</span>
-                            <span class="leaderboard-name">PlayerOne</span>
-                            <span class="leaderboard-score">9999 pts</span>
-                        </div>
-                        <div class="leaderboard-row">
-                            <img src="../game-objects/Second_Place_t.png" alt="2nd Place" class="leaderboard-icon" />
-                            <span class="leaderboard-rank">2nd Place</span>
-                            <span class="leaderboard-name">PlayerTwo</span>
-                            <span class="leaderboard-score">8888 pts</span>
-                        </div>
-                        <div class="leaderboard-row">
-                            <img src="../game-objects/Third_Place_t.png" alt="3rd Place" class="leaderboard-icon" />
-                            <span class="leaderboard-rank">3rd Place</span>
-                            <span class="leaderboard-name">PlayerThree</span>
-                            <span class="leaderboard-score">7777 pts</span>
-                        </div>
-                    </div>
+                <div id="leaderboardContent" class="leaderboard-scroll">
                 </div>
             </div>
             <div id="backMenuPanel" class="side-panel backmenu-panel hidden">
@@ -1403,45 +1279,44 @@
                 <button class="close-btn" onclick="closePanelOverlay()" aria-label="Close">&times;</button>
                 <h2>Settings</h2>
                 <label class="toggle-label">
-                    <input type="checkbox" id="musicToggleSide" onchange="toggleMusic()" checked>
+                    <input type="checkbox" id="musicToggleSide" checked>
                     Music On/Off
                 </label>
                 <label class="toggle-label" style="margin-top:16px;">
                     <span style="margin-right:12px;">Light Mode</span>
-                    <input type="checkbox" id="themeToggle" onchange="toggleTheme()">
+                    <input type="checkbox" id="themeToggle">
                 </label>
+                <button class="menu-btn" onclick="closePanelOverlay()">Close</button>
             </div>
         </div>
         <div class="rounded-square">
             <div class="plant-grid" id="garden">
-                <!-- Garden cells will be generated by JavaScript -->
             </div>
         </div>
     </div>
-
-    <!-- Loading, overlays, modals: hidden by default -->
     <div id="loading" class="hidden">
         <div class="loading-bar-container">
             <div class="loading-bar" id="progressBar"></div>
         </div>
         <div class="working-message">Working</div>
     </div>
-
     <div id="settingsOverlay" class="settings-overlay hidden" onclick="closeSettings()"></div>
     <div id="settingsModal" class="settings-modal hidden">
         <h2>Settings</h2>
         <label class="toggle-label">
-            <input type="checkbox" id="musicToggle" onchange="toggleMusic()" checked>
+            <input type="checkbox" id="musicToggle" checked>
             Music On/Off
+        </label>
+        <label class="toggle-label" style="margin-top:16px;">
+            <span style="margin-right:12px;">Light Mode</span>
+            <input type="checkbox" id="themeToggleMenu">
         </label>
         <button class="menu-btn" onclick="closeSettings()">Close</button>
     </div>
-    
     <div class="homer_footer_container">
-        <a href="http://127.0.0.1:5501/home%20-%20sproutly/home.html" class="homer">Go to Homepage</a>
+        <a href="https://richardd242.github.io/sproutly/home" class="homer">Go to Homepage</a>
         <p class="footer-link-desc">Visit the Sproutly homepage for more info and updates.</p>
     </div>
-
     <div id="shopModal" class="custom-modal hidden">
         <h2>Shop</h2>
         <div class="modal-content">Shop content goes here.</div>
@@ -1464,7 +1339,47 @@
         <button class="modal-btn" onclick="closeLoadGameModal()" style="margin-top: 18px;">Cancel</button>
     </div>
     <div id="panelOverlay" class="panel-overlay hidden" onclick="closePanelOverlay()"></div>
-
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="game.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const leaderboardPanel = document.getElementById('leaderboardPanel');
+      if (!leaderboardPanel) return;
+      const tabs = leaderboardPanel.querySelectorAll('.leaderboard-tab');
+      const leaderboardContent = document.getElementById('leaderboardContent');
+      let currentCategory = 'sproukels';
+      function setActiveTab(category) {
+        tabs.forEach(tab => {
+          if (tab.dataset.category === category) {
+            tab.classList.add('active');
+            tab.style.background = 'linear-gradient(90deg, #ffe066 60%, #ffd700 100%)';
+            tab.style.color = '#bfa600';
+            tab.style.boxShadow = '0 0 0 2px #ffd70099';
+          } else {
+            tab.classList.remove('active');
+            tab.style.background = '';
+            tab.style.color = '';
+            tab.style.boxShadow = '';
+          }
+        });
+      }
+      tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          const category = tab.dataset.category;
+          if (category !== currentCategory) {
+            currentCategory = category;
+            setActiveTab(category);
+            if (window && typeof window.renderLeaderboard === 'function') {
+              window.renderLeaderboard(category);
+            }
+          }
+        });
+      });
+      setActiveTab(currentCategory);
+      if (window && typeof window.renderLeaderboard === 'function') {
+        window.renderLeaderboard(currentCategory);
+      }
+    });
+    </script>
 </body>
 </html>

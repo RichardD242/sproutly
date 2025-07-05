@@ -1,3 +1,0 @@
-make grid
-make tycoon feature
-save and load (auto load and auto save)

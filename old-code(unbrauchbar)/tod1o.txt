@@ -1,9 +1,0 @@
-This project has a homepage (home.xyz), which is just where the game and so on is explained. The MAIN game is in game.xyz in the main folder i think. 
-
-Images used are cooked and not mine 
-
-
-To do list: Fix the long css, looks boring and sucks
-            Finish the homepage with the tutorial (probably after making the game) - finished, images still missing
-
-            Add Leaderboard

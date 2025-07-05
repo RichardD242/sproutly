@@ -1,8 +1,128 @@
-// Sproutly Game - Complete Implementation
-
-// Music functionality
 let musicOn = true;
 let audio = null;
+
+
+function setMusicState(on) {
+    musicOn = on;
+    if (musicOn) {
+        if (!audio) {
+            audio = new Audio('../game-objects/MainSong.mp3');
+            audio.loop = true;
+            audio.volume = 0.3;
+        }
+        audio.play().catch(err => console.log('Audio play failed:', err));
+    } else {
+        if (audio) audio.pause();
+    }
+    
+    const menuToggle = document.getElementById('musicToggle');
+    const sideToggle = document.getElementById('musicToggleSide');
+    if (menuToggle) menuToggle.checked = musicOn;
+    if (sideToggle) sideToggle.checked = musicOn;
+}
+
+function handleMusicToggle(e) {
+    setMusicState(e.target.checked);
+}
+
+function setupMusicToggles() {
+    const menuToggle = document.getElementById('musicToggle');
+    const sideToggle = document.getElementById('musicToggleSide');
+    if (menuToggle) {
+        menuToggle.removeEventListener('change', handleMusicToggle);
+        menuToggle.addEventListener('change', handleMusicToggle);
+        menuToggle.checked = musicOn;
+    }
+    if (sideToggle) {
+        sideToggle.removeEventListener('change', handleMusicToggle);
+        sideToggle.addEventListener('change', handleMusicToggle);
+        sideToggle.checked = musicOn;
+    }
+}
+
+
+function setThemeState(isLight) {
+    document.body.classList.toggle('light-mode', isLight);
+    
+    const toggles = [
+        document.getElementById('themeToggle'),
+        document.getElementById('themeToggleMenu')
+    ];
+    toggles.forEach(t => { if (t) t.checked = isLight; });
+}
+
+function handleThemeToggle(e) {
+    setThemeState(e.target.checked);
+}
+
+function setupThemeToggles() {
+    const toggles = [
+        document.getElementById('themeToggle'),
+        document.getElementById('themeToggleMenu')
+    ];
+    toggles.forEach(toggle => {
+        if (toggle) {
+            toggle.removeEventListener('change', handleThemeToggle);
+            toggle.addEventListener('change', handleThemeToggle);
+            toggle.checked = document.body.classList.contains('light-mode');
+        }
+    });
+}
+
+
+function openSettings() {
+    document.getElementById('settingsOverlay').classList.remove('hidden');
+    document.getElementById('settingsModal').classList.remove('hidden');
+    setupMusicToggles();
+    setupThemeToggles();
+}
+
+function closeSettings() {
+    document.getElementById('settingsOverlay').classList.add('hidden');
+    document.getElementById('settingsModal').classList.add('hidden');
+}
+
+
+function openPanel(panel) {
+    document.querySelectorAll('.left-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.side-panel').forEach(panelDiv => {
+        panelDiv.classList.add('hidden');
+        panelDiv.classList.remove('show');
+    });
+    document.getElementById('panelOverlay').classList.remove('hidden');
+
+    let btn, panelDiv;
+    if (panel === 'sell') {
+        btn = document.querySelector('.sell-btn');
+        panelDiv = document.getElementById('sellPanel');
+    } else if (panel === 'shop') {
+        btn = document.querySelector('.shop-btn');
+        panelDiv = document.getElementById('shopPanel');
+    } else if (panel === 'equipment') {
+        btn = document.querySelector('.equipment-btn');
+        panelDiv = document.getElementById('equipmentPanel');
+    } else if (panel === 'leaderboard') {
+        btn = document.querySelector('.leaderboard-btn');
+        panelDiv = document.getElementById('leaderboardPanel');
+    } else if (panel === 'settings') {
+        btn = document.querySelector('.settings-btn');
+        panelDiv = document.getElementById('settingsPanel');
+    } else if (panel === 'backmenu') {
+        btn = document.querySelector('.backmenu-btn');
+        panelDiv = document.getElementById('backMenuPanel');
+    }
+
+    if (btn && panelDiv) {
+        btn.classList.add('active');
+        panelDiv.classList.remove('hidden');
+        panelDiv.classList.add('show');
+        if (panel === 'settings') {
+            setupMusicToggles();
+            setupThemeToggles();
+        }
+    }
+}
+
 
 class SproutlyGame {
     constructor() {
@@ -16,7 +136,7 @@ class SproutlyGame {
             lastSaved: Date.now(),
             equipment: {
                 gloves: false,
-                luckLevel: 0, // 0: not owned, 1: I, 2: II, 3: III
+                luckLevel: 0, 
                 sprinkler1: false,
                 sprinkler2: false
             }
@@ -33,7 +153,7 @@ class SproutlyGame {
 
         this.equipmentList = [
             { id: 'gloves', name: 'Gloves', price: 50, icon: '../game-objects/Gloves_t.png', desc: 'Faster planting.' },
-            { id: 'luck', name: ['Lucky Charm I', 'Lucky Charm II', 'Lucky Charm III'], price: [100, 200, 400], icon: ['../game-objects/Luck1_t.png','../game-objects/Luck2_t.png','../game-objects/Luck3_t.png'], desc: 'Increases luck.' },
+            { id: 'luck', name: ['Lucky Charm I', 'Lucky Charm II', 'Lucky Charm III'], price: [100, 200, 400], icon: ['../game-objects/Luck1_t.png','../game-objects/Luck2_t.png','../game-objects/Luck3_t.png'], desc: 'Increases luck for giant plants.' },
             { id: 'sprinkler1', name: 'Sprinkler I', price: 200, icon: '../game-objects/Sprinkler1_t.png', desc: 'Auto-waters plants.' },
             { id: 'sprinkler2', name: 'Sprinkler II', price: 400, icon: '../game-objects/Sprinkler_t.png', desc: 'Waters faster.' }
         ];
@@ -56,15 +176,15 @@ class SproutlyGame {
     }
 
     init() {
-        console.log('🌱 Initializing Sproutly Game...');
-        // this.loadGame(); // REMOVE or comment out this line!
+        console.log('Initializing Sproutly Game...');
+        
         this.createGarden();
         this.updateUI();
         this.startGameLoop();
-        console.log('✅ Sproutly Game Ready!');
+        console.log('Sproutly Game Ready!');
     }
 
-    // Save/Load System
+    
     saveGame() {
         this.gameData.lastSaved = Date.now();
         try {
@@ -76,7 +196,7 @@ class SproutlyGame {
     }
 
     loadGame() {
-        // Gather all saves
+        
         const saves = [];
         for (let i = 0; i < localStorage.length; i++) {
             const key = localStorage.key(i);
@@ -88,7 +208,7 @@ class SproutlyGame {
             }
         }
 
-        // Build the list
+        
         const listDiv = document.getElementById('savedGamesList');
         listDiv.innerHTML = '';
         if (saves.length === 0) {
@@ -153,8 +273,8 @@ class SproutlyGame {
 
     closeLoadGameModal() {
         document.getElementById('loadGameModal').classList.add('hidden');
-        // Remove or comment out this line:
-        // document.getElementById('panelOverlay').classList.add('hidden');
+        
+        
     }
 
     loadGameByKey(key) {
@@ -174,9 +294,9 @@ class SproutlyGame {
 
     processOfflineGrowth() {
         const now = Date.now();
-        const timeDiff = (now - this.gameData.lastSaved) / 1000; // seconds
+        const timeDiff = (now - this.gameData.lastSaved) / 1000; 
         
-        if (timeDiff > 5) { // Only process if away for more than 5 seconds
+        if (timeDiff > 5) { 
             let plantsGrown = 0;
             for (let row = 0; row < this.gridSize.rows; row++) {
                 for (let col = 0; col < this.gridSize.cols; col++) {
@@ -201,7 +321,7 @@ class SproutlyGame {
         }
     }
 
-    // Garden Creation
+    
     createGarden() {
         const garden = document.getElementById('garden');
         if (!garden) {
@@ -231,7 +351,7 @@ class SproutlyGame {
         console.log(`Garden created: ${this.gridSize.rows}x${this.gridSize.cols} = ${garden.children.length} cells`);
     }
 
-    // Cell Interactions
+    
     handleCellClick(row, col) {
         const plant = this.gameData.garden[row][col];
         
@@ -252,11 +372,11 @@ class SproutlyGame {
         }
     }
 
-    // Game Actions
+    
     plantSeed(row, col) {
         const seed = this.seeds.find(s => s.id === this.gameData.selectedSeed);
         if (!seed) return;
-        // Apply gloves discount if owned
+        
         let seedCost = seed.cost;
         if (this.gameData.equipment.gloves) {
             seedCost = Math.ceil(seedCost * 0.75);
@@ -266,20 +386,20 @@ class SproutlyGame {
             return;
         }
 
-        // Luck-based giant plant chance
+        
         let luckLevel = this.gameData.equipment.luckLevel || 0;
-        let giantChance = [0.05, 0.15, 0.3, 0.5][luckLevel]; // 5%, 15%, 30%, 50%
+        let giantChance = [0.05, 0.15, 0.3, 0.5][luckLevel]; 
         const isGiant = Math.random() < giantChance;
 
         let giantSize = 48;
         let giantRewardMultiplier = 1;
         if (isGiant) {
-            // Random size between 60 and 96px
+            
             giantSize = Math.floor(Math.random() * (96 - 60 + 1)) + 60;
-            // Map size to multiplier: 1.5x for 60px, 3x for 96px (linear)
+            
             const minSize = 60, maxSize = 96, minMult = 1.5, maxMult = 3.0;
             let floatMult = minMult + ((giantSize - minSize) / (maxSize - minSize)) * (maxMult - minMult);
-            giantRewardMultiplier = Math.round(floatMult); // round to nearest integer
+            giantRewardMultiplier = Math.round(floatMult); 
         }
 
         this.gameData.coins -= seedCost;
@@ -309,16 +429,16 @@ class SproutlyGame {
 
         let reward = seed.reward;
         if (plant.giant) {
-            // Use integer multiplier for giant plants
+            
             reward *= plant.giantRewardMultiplier || 2;
-            reward = Math.round(reward); // round to integer
+            reward = Math.round(reward); 
         }
         this.gameData.coins += reward;
         this.gameData.experience += 10;
         this.gameData.totalHarvests++;
         this.gameData.garden[row][col] = null;
 
-        // Level up check
+        
         const newLevel = Math.floor(this.gameData.experience / 100) + 1;
         if (newLevel > this.gameData.level) {
             this.gameData.level = newLevel;
@@ -349,7 +469,7 @@ class SproutlyGame {
         }
     }
 
-    // UI Updates
+    
     updateUI() {
         this.updateStats();
         this.updateGarden();
@@ -359,13 +479,13 @@ class SproutlyGame {
     }
 
     updateStats() {
-        // Update sproukels counter
+        
         const sproukelsAmount = document.getElementById('sproukelsAmount');
         if (sproukelsAmount) {
             sproukelsAmount.textContent = this.gameData.coins;
         }
 
-        // XP Counter/Bar
+        
         const xpAmount = document.getElementById('xpAmount');
         const xpLevel = document.getElementById('xpLevel');
         const xpBarFill = document.getElementById('xpBarFill');
@@ -387,7 +507,7 @@ class SproutlyGame {
             const row = parseInt(cell.dataset.row);
             const col = parseInt(cell.dataset.col);
             const plant = this.gameData.garden[row][col];
-            // Reset cell
+            
             cell.className = 'plant-cell';
             cell.innerHTML = '';
             if (plant) {
@@ -395,7 +515,7 @@ class SproutlyGame {
                 if (seed) {
                     cell.classList.add('planted');
                     let imgPath = `../game-objects/Sproutly-${seed.name}/${plant.stage + 1}_t.png`;
-                    // Use random size for giant plants
+                    
                     let imgSize = plant.giant ? (plant.giantSize || 80) : 48;
                     let giantClass = plant.giant ? 'giant-plant' : '';
                     cell.innerHTML = `<div class=\"plant-display ${giantClass}\"><img src=\"${imgPath}\" alt=\"${seed.name}\" width=\"${imgSize}\" height=\"${imgSize}\" style=\"image-rendering: crisp-edges;\"/></div>`;
@@ -405,7 +525,7 @@ class SproutlyGame {
                         cell.title = `${seed.name} - Ready to harvest!`;
                     } else {
                         cell.title = `${seed.name} - Stage ${plant.stage + 1}/4`;
-                        // Add growth progress bar
+                        
                         const progressBar = document.createElement('div');
                         progressBar.className = 'growth-progress';
                         progressBar.style.width = `${(plant.stage / 3) * 100}%`;
@@ -429,9 +549,9 @@ class SproutlyGame {
         const shop = document.getElementById('seed-shop');
         if (!shop) return;
         shop.innerHTML = '';
-        // Apply gloves discount if owned
+        
         const glovesOwned = this.gameData.equipment.gloves;
-        // Sort seeds by required level (ascending)
+        
         const sortedSeeds = [...this.seeds].sort((a, b) => a.level - b.level);
         sortedSeeds.forEach(seed => {
             let displayCost = seed.cost;
@@ -466,7 +586,7 @@ class SproutlyGame {
                     <div class="seed-name">${seed.name}</div>
                     <div class="seed-cost">${costString}</div>
                     <div class="seed-reward">+${seed.reward} Sproukels</div>
-                    ${!canUnlock ? `<div class="seed-level">Unlock at Level ${seed.level}</div>` : ''}
+                    <div class="seed-level">Unlock at Level ${seed.level}</div>
                 </div>
             `;
 
@@ -483,7 +603,7 @@ class SproutlyGame {
         const shop = document.getElementById('equipment-shop');
         if (!shop) return;
         shop.innerHTML = '';
-        // Helper for card layout
+        
         function createEquipmentBar({icon, name, price, owned, buyId, onBuy, desc, disabled, isLuck, luckLevel, maxed}) {
             const bar = document.createElement('div');
             bar.className = 'equipment-card';
@@ -496,7 +616,7 @@ class SproutlyGame {
             bar.style.maxWidth = '100%';
             bar.style.padding = '10px 12px';
             bar.style.margin = '0';
-            // Icon
+            
             const img = document.createElement('img');
             img.src = icon;
             img.alt = name;
@@ -504,7 +624,7 @@ class SproutlyGame {
             img.style.width = isLuck ? '48px' : '40px';
             img.style.height = isLuck ? '48px' : '40px';
             img.style.margin = '0 8px 0 0';
-            // Info
+            
             const info = document.createElement('div');
             info.style.flex = '1';
             info.style.display = 'flex';
@@ -523,7 +643,7 @@ class SproutlyGame {
             d.style.margin = '0';
             info.appendChild(n);
             if (desc) info.appendChild(d);
-            // Price
+            
             const p = document.createElement('div');
             p.className = 'equipment-price';
             p.style.fontSize = '0.98rem';
@@ -533,7 +653,7 @@ class SproutlyGame {
                 p.innerHTML = `${price} <img src='SproukelsIcon.png' style='width:16px;vertical-align:middle;'/>`;
             }
             info.appendChild(p);
-            // Button
+            
             const btn = document.createElement('button');
             btn.className = 'menu-btn';
             btn.id = buyId;
@@ -542,13 +662,13 @@ class SproutlyGame {
             btn.style.marginLeft = '16px';
             btn.style.minWidth = '64px';
             btn.onclick = onBuy;
-            // Compose
+            
             bar.appendChild(img);
             bar.appendChild(info);
             bar.appendChild(btn);
             return bar;
         }
-        // Gloves
+        
         const gloves = this.equipmentList.find(e => e.id === 'gloves');
         shop.appendChild(createEquipmentBar({
             icon: gloves.icon,
@@ -568,11 +688,11 @@ class SproutlyGame {
                 this.saveGame();
                 this.showNotification('Gloves purchased!');
             },
-            // Updated description
+            
             desc: 'Reduces all seed prices by 25%.',
             disabled: this.gameData.coins < gloves.price
         }));
-        // Luck Charm (Upgradable)
+        
         const luck = this.equipmentList.find(e => e.id === 'luck');
         const luckLevel = this.gameData.equipment.luckLevel;
         if (luckLevel < 3) {
@@ -612,7 +732,6 @@ class SproutlyGame {
                 luckLevel: 3
             }));
         }
-        // Sprinkler I
         const sprinkler1 = this.equipmentList.find(e => e.id === 'sprinkler1');
         shop.appendChild(createEquipmentBar({
             icon: sprinkler1.icon,
@@ -632,11 +751,9 @@ class SproutlyGame {
                 this.saveGame();
                 this.showNotification('Sprinkler I purchased!');
             },
-            // Updated description
             desc: 'Plants grow 10% faster.',
             disabled: this.gameData.coins < sprinkler1.price
         }));
-        // Sprinkler II
         const sprinkler2 = this.equipmentList.find(e => e.id === 'sprinkler2');
         shop.appendChild(createEquipmentBar({
             icon: sprinkler2.icon,
@@ -656,7 +773,7 @@ class SproutlyGame {
                 this.saveGame();
                 this.showNotification('Sprinkler II purchased!');
             },
-            // Updated description
+            
             desc: 'Plants grow 25% faster.',
             disabled: this.gameData.coins < sprinkler2.price
         }));
@@ -666,7 +783,7 @@ class SproutlyGame {
         const area = document.getElementById('activeAreaContent');
         if (!area) return;
         area.innerHTML = '';
-        // Luck
+        
         const luck = this.equipmentList.find(e => e.id === 'luck');
         const luckLevel = this.gameData.equipment.luckLevel;
         if (luckLevel > 0) {
@@ -687,7 +804,7 @@ class SproutlyGame {
             luckDiv.appendChild(label);
             area.appendChild(luckDiv);
         }
-        // Gloves
+        
         if (this.gameData.equipment.gloves) {
             const gloves = this.equipmentList.find(e => e.id === 'gloves');
             const glovesDiv = document.createElement('div');
@@ -707,7 +824,7 @@ class SproutlyGame {
             glovesDiv.appendChild(label);
             area.appendChild(glovesDiv);
         }
-        // Show only the highest owned sprinkler
+        
         let sprinklerToShow = null;
         if (this.gameData.equipment.sprinkler2) {
             sprinklerToShow = this.equipmentList.find(e => e.id === 'sprinkler2');
@@ -732,7 +849,7 @@ class SproutlyGame {
             sDiv.appendChild(label);
             area.appendChild(sDiv);
         }
-        // If nothing active
+        
         if (!area.hasChildNodes()) {
             const none = document.createElement('div');
             none.textContent = 'No equipment active.';
@@ -742,14 +859,14 @@ class SproutlyGame {
         }
     }
 
-    // Game Loop
+    
     startGameLoop() {
-        // Update plant growth every second
+        
         setInterval(() => {
             this.updatePlantGrowth();
         }, 1000);
 
-        // Auto-save every 10 seconds
+        
         setInterval(() => {
             this.saveGame();
         }, 10000);
@@ -758,12 +875,12 @@ class SproutlyGame {
     updatePlantGrowth() {
         let hasChanges = false;
         const now = Date.now();
-        // Sprinkler speedup
+        
         let speedup = 1;
         if (this.gameData.equipment.sprinkler2) {
-            speedup = 1.25; // 25% faster
+            speedup = 1.25; 
         } else if (this.gameData.equipment.sprinkler1) {
-            speedup = 1.10; // 10% faster
+            speedup = 1.10; 
         }
         for (let row = 0; row < this.gridSize.rows; row++) {
             for (let col = 0; col < this.gridSize.cols; col++) {
@@ -772,7 +889,7 @@ class SproutlyGame {
                     const seed = this.seeds.find(s => s.id === plant.seedId);
                     if (seed) {
                         const timeSincePlanted = (now - plant.plantedAt) / 1000;
-                        // Apply speedup to stage time
+                        
                         const stageTime = (seed.time / 4) / speedup;
                         const expectedStage = Math.min(Math.floor(timeSincePlanted / stageTime), 3);
                         if (expectedStage > plant.stage) {
@@ -789,17 +906,17 @@ class SproutlyGame {
     }
 
     showNotification(message) {
-        // Remove existing notifications
+        
         const existing = document.querySelectorAll('.notification');
         existing.forEach(n => n.remove());
 
-        // Create new notification
+        
         const notification = document.createElement('div');
         notification.className = 'notification';
         notification.textContent = message;
         document.body.appendChild(notification);
 
-        // Auto-remove after 3 seconds
+        
         setTimeout(() => {
             if (notification.parentNode) {
                 notification.remove();
@@ -808,13 +925,13 @@ class SproutlyGame {
     }
 }
 
-// Menu and UI Functions
+
 function startNewGame() {
     document.getElementById('menu').classList.add('hidden');
     document.getElementById('loading').classList.remove('hidden');
     document.querySelector('.working-message').textContent = "Working!";
 
-    // Reset all game state including sproukels
+    
     const usernameInput = document.getElementById('usernameInput');
     const username = usernameInput ? usernameInput.value : 'Player';
     if (window.game) {
@@ -838,7 +955,7 @@ function startNewGame() {
     }
     document.getElementById('sproukelsAmount').textContent = 20;
 
-    // Animate progress bar
+    
     const bar = document.getElementById('progressBar');
     bar.style.width = '0';
     void bar.offsetWidth;
@@ -857,7 +974,7 @@ function startNewGame() {
 }
 
 function loadGame() {
-    // Gather all saves
+    
     const saves = [];
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
@@ -869,7 +986,7 @@ function loadGame() {
         }
     }
 
-    // Build the list
+    
     const listDiv = document.getElementById('savedGamesList');
     listDiv.innerHTML = '';
     if (saves.length === 0) {
@@ -934,14 +1051,30 @@ function loadGame() {
 
 function closeLoadGameModal() {
     document.getElementById('loadGameModal').classList.add('hidden');
-    // Remove or comment out this line:
-    // document.getElementById('panelOverlay').classList.add('hidden');
 }
 
 function openSettings() {
+    
+    const modalToggle = document.getElementById('musicToggle');
+    const sideToggle = document.getElementById('musicToggleSide');
+    console.log('[openSettings] musicToggle exists:', !!modalToggle);
+    if (modalToggle) {
+        modalToggle.checked = musicOn;
+    }
+    if (sideToggle) {
+        sideToggle.checked = musicOn;
+    }
     document.getElementById('settingsOverlay').classList.remove('hidden');
     document.getElementById('settingsModal').classList.remove('hidden');
-    document.getElementById('musicToggle').checked = musicOn;
+    
+    setTimeout(() => {
+        setupMusicToggles();
+        const modalToggleNow = document.getElementById('musicToggle');
+        console.log('[openSettings] After setTimeout, musicToggle exists:', !!modalToggleNow);
+        if (modalToggleNow) {
+            console.log('[openSettings] musicToggle.checked:', modalToggleNow.checked, 'musicOn:', musicOn);
+        }
+    }, 0);
 }
 
 function closeSettings() {
@@ -949,55 +1082,19 @@ function closeSettings() {
     document.getElementById('settingsModal').classList.add('hidden');
 }
 
-function setMusicState(on) {
-    musicOn = on;
-    if (musicOn) {
-        if (!audio) {
-            audio = new Audio('../game-objects/MainSong.mp3');
-            audio.loop = true;
-            audio.volume = 0.3;
-        }
-        audio.play().catch(err => console.log('Audio play failed:', err));
-    } else {
-        if (audio) audio.pause();
-    }
-    // Sync both toggles
-    if (document.getElementById('musicToggle')) {
-        document.getElementById('musicToggle').checked = musicOn;
-    }
-    if (document.getElementById('musicToggleSide')) {
-        document.getElementById('musicToggleSide').checked = musicOn;
-    }
-}
-
-function handleMusicToggle(e) {
-    setMusicState(e.target.checked);
-}
-
-// Set up event listeners for both toggles
-function setupMusicToggles() {
-    const toggle1 = document.getElementById('musicToggle');
-    const toggle2 = document.getElementById('musicToggleSide');
-    if (toggle1) {
-        toggle1.removeEventListener('change', handleMusicToggle);
-        toggle1.addEventListener('change', handleMusicToggle);
-    }
-    if (toggle2) {
-        toggle2.removeEventListener('change', handleMusicToggle);
-        toggle2.addEventListener('change', handleMusicToggle);
-    }
-    setMusicState(musicOn); // Set initial state
-}
 
 function setThemeState(isLight) {
-    document.body.classList.toggle('light-mode', isLight);
-    // Sync all theme toggles
-    if (document.getElementById('themeToggle')) {
-        document.getElementById('themeToggle').checked = isLight;
+    if (isLight) {
+        document.body.classList.add('light-mode');
+    } else {
+        document.body.classList.remove('light-mode');
     }
-    if (document.getElementById('themeToggleMenu')) {
-        document.getElementById('themeToggleMenu').checked = isLight;
-    }
+    
+    const toggles = [
+        document.getElementById('themeToggle'),
+        document.getElementById('themeToggleMenu')
+    ];
+    toggles.forEach(t => { if (t) t.checked = isLight; });
 }
 
 function handleThemeToggle(e) {
@@ -1005,93 +1102,236 @@ function handleThemeToggle(e) {
 }
 
 function setupThemeToggles() {
-    const toggle1 = document.getElementById('themeToggle');
-    const toggle2 = document.getElementById('themeToggleMenu');
-    if (toggle1) {
-        toggle1.removeEventListener('change', handleThemeToggle);
-        toggle1.addEventListener('change', handleThemeToggle);
-    }
-    if (toggle2) {
-        toggle2.removeEventListener('change', handleThemeToggle);
-        toggle2.addEventListener('change', handleThemeToggle);
-    }
-    setThemeState(document.body.classList.contains('light-mode'));
-}
-
-// --- Leaderboard data and rendering ---
-const leaderboardData = {
-    sproukels: [
-        { rank: 1, name: 'PlayerOne', score: 9999 },
-        { rank: 2, name: 'PlayerTwo', score: 8888 },
-        { rank: 3, name: 'PlayerThree', score: 7777 }
-    ],
-    levels: [
-        { rank: 1, name: 'PlayerOne', score: 99 },
-        { rank: 2, name: 'PlayerTwo', score: 88 },
-        { rank: 3, name: 'PlayerThree', score: 77 }
-    ],
-    plants: [
-        { rank: 1, name: 'PlayerOne', score: 123 },
-        { rank: 2, name: 'PlayerTwo', score: 111 },
-        { rank: 3, name: 'PlayerThree', score: 100 }
-    ]
-};
-
-function renderLeaderboard(category) {
-    const lists = document.querySelectorAll('#leaderboardContent .leaderboard-list');
-    lists.forEach(list => list.style.display = 'none');
-    let list = document.querySelector(`#leaderboardContent .leaderboard-list[data-category="${category}"]`);
-    if (!list) return;
-    list.innerHTML = '';
-    leaderboardData[category].forEach(entry => {
-        const row = document.createElement('div');
-        row.className = 'leaderboard-row';
-        let trophy = '../game-objects/First_Place_t.png';
-        if (entry.rank === 2) trophy = '../game-objects/Second_Place_t.png';
-        if (entry.rank === 3) trophy = '../game-objects/Third_Place_t.png';
-        row.innerHTML = `
-            <img src="${trophy}" alt="${entry.rank}st Place" class="leaderboard-icon" />
-            <span class="leaderboard-rank">${entry.rank === 1 ? '1st Place' : entry.rank === 2 ? '2nd Place' : '3rd Place'}</span>
-            <span class="leaderboard-name">${entry.name}</span>
-            <span class="leaderboard-score">${entry.score} pts</span>
-        `;
-        list.appendChild(row);
+    const toggles = [
+        document.getElementById('themeToggle'),
+        document.getElementById('themeToggleMenu')
+    ];
+    toggles.forEach(toggle => {
+        if (toggle) {
+            toggle.removeEventListener('change', handleThemeToggle);
+            toggle.addEventListener('change', handleThemeToggle);
+            toggle.checked = document.body.classList.contains('light-mode');
+        }
     });
-    list.style.display = '';
 }
 
-// Initialize
+
 document.addEventListener('DOMContentLoaded', () => {
     setupMusicToggles();
     setupThemeToggles();
-    // Set initial toggle states
+    
     if (document.getElementById('musicToggle')) {
         document.getElementById('musicToggle').checked = musicOn;
     }
     if (document.getElementById('musicToggleSide')) {
         document.getElementById('musicToggleSide').checked = musicOn;
     }
-    
-    // Auto-start music if enabled
-    if (musicOn) {
-        setTimeout(() => toggleMusic(), 1000); // Delay to ensure user interaction
+    if (document.getElementById('themeToggle')) {
+        document.getElementById('themeToggle').checked = document.body.classList.contains('light-mode');
     }
+    if (document.getElementById('themeToggleMenu')) {
+        document.getElementById('themeToggleMenu').checked = document.body.classList.contains('light-mode');
+    }
+});
 
-    // Leaderboard tab switching
+
+
+
+const SUPABASE_URL = 'https://rviauvfmupalibfvdyew.supabase.co'
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ2aWF1dmZtdXBhbGliZnZkeWV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2MzQ3MjQsImV4cCI6MjA2NzIxMDcyNH0._d4IlmlXWZ73maRQNT1XvXKepUL1k30MaSOgdqNP1J4';
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+
+async function fetchLeaderboard(category = 'sproukels') {
+  const { data, error } = await supabase
+    .from('leaderboard')
+    .select('*')
+    .eq('category', category)
+    .order('score', { ascending: false })
+    .limit(10);
+  if (error) {
+    console.error(error);
+    return [];
+  }
+  return data;
+}
+
+
+async function submitScore(username, score, category = 'sproukels') {
+  const { data, error } = await supabase
+    .from('leaderboard')
+    .upsert([{ username, score, category }], { onConflict: ['username', 'category'] });
+  if (error) {
+    console.error(error);
+    return false;
+  }
+  return true;
+}
+
+
+if (typeof window !== 'undefined') {
+  window.submitScore = submitScore;
+  window.fetchLeaderboard = fetchLeaderboard;
+  console.log('submitScore and fetchLeaderboard are now globally available');
+}
+
+
+async function renderLeaderboard(category) {
+    
+    const leaderboardContent = document.getElementById('leaderboardContent');
+    if (!leaderboardContent) return;
+    const categories = ['sproukels', 'levels', 'plants'];
+    categories.forEach(cat => {
+        let list = leaderboardContent.querySelector(`.leaderboard-list[data-category="${cat}"]`);
+        if (!list) {
+            list = document.createElement('div');
+            list.className = 'leaderboard-list';
+            list.setAttribute('data-category', cat);
+            list.style.display = 'none';
+            leaderboardContent.appendChild(list);
+        }
+    });
+    
+    const lists = leaderboardContent.querySelectorAll('.leaderboard-list');
+    lists.forEach(list => list.style.display = 'none');
+    let list = leaderboardContent.querySelector(`.leaderboard-list[data-category="${category}"]`);
+    if (!list) return;
+    list.innerHTML = '<div class="leaderboard-loading">Loading...</div>';
+    list.style.display = '';
+    const data = await fetchLeaderboard(category);
+    list.innerHTML = '';
+    if (!data || data.length === 0) {
+        list.innerHTML = '<div class="leaderboard-empty">No scores yet!</div>';
+        return;
+    }
+    
+    let scoreLabel = 'Sproukels';
+    if (category === 'levels') scoreLabel = 'Levels';
+    if (category === 'plants') scoreLabel = 'Planted';
+    data.forEach((entry, idx) => {
+        const row = document.createElement('div');
+        row.className = 'leaderboard-row';
+        let trophy = '';
+        if (idx === 0) trophy = '../game-objects/First_Place_t.png';
+        if (idx === 1) trophy = '../game-objects/Second_Place_t.png';
+        if (idx === 2) trophy = '../game-objects/Third_Place_t.png';
+        row.innerHTML =
+            (idx < 3 ? `<img src="${trophy}" alt="${idx+1}st Place" class="leaderboard-icon" />` : `<span class="leaderboard-rank" style="min-width:48px;text-align:center;font-size:1.2em;">${idx+1}</span>`) +
+            `<span class="leaderboard-rank">${idx === 0 ? '1st Place' : idx === 1 ? '2nd Place' : idx === 2 ? '3rd Place' : (idx+1)}</span>` +
+            `<span class="leaderboard-name">${entry.username || entry.name || 'Player'}</span>` +
+            `<span class="leaderboard-score">${entry.score} ${scoreLabel}</span>`;
+        list.appendChild(row);
+    });
+    
     const tabs = document.querySelectorAll('.leaderboard-tab');
     tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('active'));
+        if (tab.getAttribute('data-category') === category) {
             tab.classList.add('active');
-            const cat = tab.getAttribute('data-category');
-            renderLeaderboard(cat);
-        });
+            tab.style.background = 'linear-gradient(90deg, #ffe066 60%, #ffd700 100%)';
+            tab.style.color = '#232323';
+            tab.style.fontWeight = 'bold';
+            tab.style.boxShadow = '0 0 0 2px #ffd70099';
+        } else {
+            tab.classList.remove('active');
+            tab.style.background = '';
+            tab.style.color = '';
+            tab.style.fontWeight = '';
+            tab.style.boxShadow = '';
+        }
     });
-    // Default to first tab
-    if (tabs[0]) {
-        tabs[0].classList.add('active');
-        renderLeaderboard('sproukels');
+    
+    if (typeof currentLeaderboardCategory !== 'undefined') {
+        currentLeaderboardCategory = category;
     }
+}
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    setupMusicToggles();
+    setupThemeToggles();
+    
+    if (document.getElementById('musicToggle')) {
+        document.getElementById('musicToggle').checked = musicOn;
+    }
+    if (document.getElementById('musicToggleSide')) {
+        document.getElementById('musicToggleSide').checked = musicOn;
+    }
+    if (document.getElementById('themeToggle')) {
+        document.getElementById('themeToggle').checked = document.body.classList.contains('light-mode');
+    }
+    if (document.getElementById('themeToggleMenu')) {
+        document.getElementById('themeToggleMenu').checked = document.body.classList.contains('light-mode');
+    }
+
+    
+    const tabs = document.querySelectorAll('.leaderboard-tab');
+    const activeCategory = (typeof currentLeaderboardCategory !== 'undefined' ? currentLeaderboardCategory : 'sproukels');
+    tabs.forEach(tab => {
+        if (tab.getAttribute('data-category') === activeCategory) {
+            tab.classList.add('active');
+            tab.style.background = 'linear-gradient(90deg, #ffe066 60%, #ffd700 100%)';
+            tab.style.color = '#232323';
+            tab.style.fontWeight = 'bold';
+            tab.style.boxShadow = '0 0 0 2px #ffd70099';
+        } else {
+            tab.classList.remove('active');
+            tab.style.background = '';
+            tab.style.color = '';
+            tab.style.fontWeight = '';
+            tab.style.boxShadow = '';
+        }
+    });
+});
+
+
+
+
+async function submitAllScores() {
+    if (!window.game || !window.game.gameData) return;
+    const username = window.game.gameData.username || 'Player';
+    const sproukels = window.game.gameData.coins || 0;
+    const level = window.game.gameData.level || 1;
+    const plants = window.game.gameData.totalHarvests || 0;
+    await Promise.all([
+        submitScore(username, sproukels, 'sproukels'),
+        submitScore(username, level, 'levels'),
+        submitScore(username, plants, 'plants')
+    ]);
+}
+
+if (typeof window !== 'undefined') {
+  window.submitAllScores = submitAllScores;
+}
+
+
+let leaderboardRefreshTimer = null;
+let leaderboardSubmitTimer = null;
+let currentLeaderboardCategory = 'sproukels';
+
+function startLeaderboardAutoTasks() {
+    if (leaderboardRefreshTimer) clearInterval(leaderboardRefreshTimer);
+    if (leaderboardSubmitTimer) clearInterval(leaderboardSubmitTimer);
+    
+    leaderboardRefreshTimer = setInterval(() => {
+        renderLeaderboard(currentLeaderboardCategory);
+    }, 10000);
+    leaderboardSubmitTimer = setInterval(() => {
+        submitAllScores();
+    }, 10000);
+    
+    const originalPlantSeed = SproutlyGame.prototype.plantSeed;
+    SproutlyGame.prototype.plantSeed = function(row, col) {
+        originalPlantSeed.call(this, row, col);
+        submitAllScores();
+    };
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        startLeaderboardAutoTasks();
+    }, 1000); 
 });
 
 function hideOrpheus() {
@@ -1099,23 +1339,23 @@ function hideOrpheus() {
 }
 
 function unlockCell(btn) {
-    // Find the next hidden cell and show it
+    
     const hiddenCells = document.querySelectorAll('.plant-cell.hidden');
     if (hiddenCells.length > 0) {
         hiddenCells[0].classList.remove('hidden');
-        // Optionally, you can move the plus button to the next cell
+        
         hiddenCells[0].classList.add('locked');
         hiddenCells[0].appendChild(btn);
     } else {
-        // No more cells to unlock, remove the button
+        
         btn.style.display = 'none';
     }
-    // Here you can also deduct "sproukels" or show a message if needed
+    
     alert("Sproukels")
 }
 
 function openPanel(panel) {
-    // Remove all active classes
+    
     document.querySelectorAll('.left-btn').forEach(btn => {
         btn.classList.remove('active');
     });
@@ -1151,19 +1391,25 @@ function openPanel(panel) {
         panelDiv.classList.remove('hidden');
         panelDiv.classList.add('show');
         if (panel === 'settings') {
-            document.getElementById('musicToggleSide').checked = musicOn;
-            document.getElementById('themeToggle').checked = document.body.classList.contains('light-mode');
+            
+            if (document.getElementById('musicToggleSide')) {
+                document.getElementById('musicToggleSide').checked = musicOn;
+            }
+            if (document.getElementById('themeToggle')) {
+                document.getElementById('themeToggle').checked = document.body.classList.contains('light-mode');
+            }
+            setupMusicToggles(); 
         }
     }
 }
 
 
-// Initialize game when page loads (but only when game UI is shown)
+
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('🌱 Sproutly Ready to Start...');
+    console.log('Sproutly Ready to Start...');
 });
 
-// Handle page visibility for better performance
+
 document.addEventListener('visibilitychange', () => {
     if (window.game && document.visibilityState === 'visible') {
         window.game.processOfflineGrowth();
@@ -1183,7 +1429,7 @@ function closePanelOverlay() {
 function closeAllPanels() {
     document.querySelectorAll('.left-btn, .menu-btn').forEach(btn => btn.classList.remove('active'));
     document.querySelectorAll('.custom-modal').forEach(modal => modal.classList.add('hidden'));
-    // Also close settings if open
+    
     document.getElementById('settingsOverlay').classList.add('hidden');
     document.getElementById('settingsModal').classList.add('hidden');
 }
@@ -1192,18 +1438,14 @@ function confirmBackToMenu(yes) {
     if (yes) {
         document.getElementById('gameUI').classList.add('hidden');
         document.getElementById('menu').classList.remove('hidden');
-        // Show homepage button/footer again
+        
         const homerFooter = document.querySelector('.homer_footer_container');
         if (homerFooter) homerFooter.classList.remove('hidden');
-        // Show Orpheus flag again
+        
         const orpheusFlag = document.getElementById('orpheusFlag');
         if (orpheusFlag) orpheusFlag.style.display = 'block';
         closePanelOverlay();
     } else {
         closePanelOverlay();
     }
-}
-
-function toggleTheme() {
-    // Deprecated: use handleThemeToggle instead
 }
